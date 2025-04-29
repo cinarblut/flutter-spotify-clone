@@ -1,0 +1,200 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        splashFactory: NoSplash.splashFactory,
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
+      ),
+      home: SpotifyHomePage(),
+    );
+  }
+}
+
+class SpotifyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text(
+          'Spotify',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.notifications, color: Colors.white),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.history, color: Colors.white),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.settings, color: Colors.white),
+          ),
+        ],
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(10),
+        children: [
+          Text(
+            'Günaydın 👋',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          SizedBox(height: 20),
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: [
+              buildMusicTile(context, 'Beğenilen Şarkılar'),
+              buildMusicTile(context, 'Favoriler'),
+              buildMusicTile(context, 'Sports Songs'),
+              buildMusicTile(context, 'Military Marches'),
+              buildMusicTile(context, 'Massaka'),
+              buildMusicTile(context, 'Ceza Mix'),
+            ],
+          ),
+          SizedBox(height: 50),
+          Text(
+            'Çınar İçin Derlendi',
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          ),
+          SizedBox(height: 10),
+          SizedBox(
+            height: 180,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                buildAlbumCard('Rapstar '),
+                buildAlbumCard('Chill Vibes '),
+                buildAlbumCard('Workout Hits '),
+                buildAlbumCard('Romantik Şarkılar '),
+                buildAlbumCard('Akustik Gitar '),
+              ],
+            ),
+          ),
+          SizedBox(height: 30),
+          Text(
+            'Son Çalınanlar',
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          ),
+          SizedBox(height: 10),
+          SizedBox(
+            height: 180,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                buildAlbumCard('Diablo - Maskem '),
+                buildAlbumCard('Massaka - Katliam '),
+                buildAlbumCard('Ceza - Holocaust '),
+                buildAlbumCard('Killa Hakan - Fight Club '),
+                buildAlbumCard('Sagopa - Neyim Var Ki '),
+              ],
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          splashFactory: NoSplash.splashFactory,
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+        ),
+        child: BottomNavigationBar(
+          backgroundColor: Colors.black,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.grey,
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Ana Sayfa'),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Ara'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.library_music),
+              label: 'Kitaplık',
+            ),
+          ],
+          onTap: (index) {},
+        ),
+      ),
+    );
+  }
+
+  Widget buildMusicTile(BuildContext context, String title) {
+    return Container(
+      width: (MediaQuery.of(context).size.width - 40) / 2,
+      height: 60,
+      decoration: BoxDecoration(
+        color: Colors.grey[900],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8),
+                bottomLeft: Radius.circular(8),
+              ),
+            ),
+            child: Center(
+              child: Icon(Icons.music_note, color: Colors.white, size: 30),
+            ),
+          ),
+          SizedBox(width: 10),
+          Expanded(child: Text(title, style: TextStyle(color: Colors.white))),
+        ],
+      ),
+    );
+  }
+
+  Widget buildAlbumCard(String title) {
+    return Container(
+      width: 140,
+      margin: EdgeInsets.only(right: 10),
+      decoration: BoxDecoration(
+        color: Colors.grey[850],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 120,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8),
+                topRight: Radius.circular(8),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: TextStyle(color: Colors.white),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
